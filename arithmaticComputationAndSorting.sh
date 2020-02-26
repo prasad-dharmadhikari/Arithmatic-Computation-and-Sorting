@@ -1,16 +1,29 @@
 #!/bin/bash -x
 
-#Take input from user
+# Variables
+count=1
+count2=$((count+1))
+temp=0
+declare -A arithmaticDictionary
+declare -a arithmaticArray
+# Take input from user
 read -p "Enter first number: " number1
 read -p "Enter second number: " number2
 read -p "Enter third number: " number3
-declare -A arithmaticDictionary
+#Compute the result and store in dictionary
 result1=`echo "scale=2 ; $number1+$number2*$number3" | bc -l`
-arithmaticDictionary["first"]=$result1
+arithmaticDictionary[1]=$result1
 result2=`echo "scale=2 ; $number3+$number1/$number2" | bc -l`
-arithmaticDictionary["second"]=$result2
+arithmaticDictionary[2]=$result2
 result3=`echo "scale=2 ; $number1*$number2+$number3" | bc -l`
-arithmaticDictionary["third"]=$result3
+arithmaticDictionary[3]=$result3
 result4=`echo "scale=2 ; $number1%$number2+$number3" | bc -l`
-arithmaticDictionary["fourth"]=$result4
+arithmaticDictionary[4]=$result4
+#Store the elements of dictionary in array
+for value in ${!arithmaticDictionary[@]}
+do
+	arithmaticArray[$value]="${arithmaticDictionary[$value]}"
+done
+echo ${arithmaticArray[@]}
+
 
