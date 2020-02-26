@@ -1,8 +1,6 @@
 #!/bin/bash -x
 
 # Variables
-count=1
-count2=$((count+1))
 temp=0
 declare -A arithmaticDictionary
 declare -a arithmaticArray
@@ -24,6 +22,20 @@ for value in ${!arithmaticDictionary[@]}
 do
 	arithmaticArray[$value]="${arithmaticDictionary[$value]}"
 done
-echo ${arithmaticArray[@]}
+# Sort the elements in array in descending order
+for count1 in ${!arithmaticArray[@]}
+do
+	for count2 in ${!arithmaticArray[@]}
+	do
+		if ((`echo "${arithmaticArray[$count1]}>${arithmaticArray[$count2]}" | bc -q`==1))
+		then
+			temp="${arithmaticArray[$count1]}"
+			arithmaticArray[$count1]="${arithmaticArray[$count2]}"
+			arithmaticArray[$count2]=$temp
+		fi
+	done
+done
+echo "Sorted array in descending order is:" ${arithmaticArray[@]}
+
 
 
