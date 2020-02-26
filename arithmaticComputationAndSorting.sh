@@ -36,6 +36,20 @@ do
 	done
 done
 echo "Sorted array in descending order is:" ${arithmaticArray[@]}
+# Sort the elements in array in ascending order
+for count1 in ${!arithmaticArray[@]}
+do
+   for count2 in ${!arithmaticArray[@]}
+   do
+      if ((`echo "${arithmaticArray[$count1]}<${arithmaticArray[$count2]}" | bc -q`==1))
+      then
+         temp="${arithmaticArray[$count1]}"
+         arithmaticArray[$count1]="${arithmaticArray[$count2]}"
+         arithmaticArray[$count2]=$temp
+      fi
+   done
+done
+echo "Sorted array in aescending order is:" ${arithmaticArray[@]}
 
 
 
